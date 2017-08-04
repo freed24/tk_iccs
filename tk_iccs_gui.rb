@@ -2,7 +2,7 @@
 # @Author: david
 # @Date:   2017-07-04 18:16:06
 # @Last Modified by:   anchen
-# @Last Modified time: 2017-08-04 18:36:26
+# @Last Modified time: 2017-08-04 18:44:15
 require 'tk'
 require 'date'
 
@@ -15,7 +15,7 @@ class TkIccsGui
     # 获取当前时间
     t = Time.now
     # 当前月份减一
-    last_month = Date.new(t.year, t.month, t.day) << 1
+    date = Date.new(t.year, t.month, t.day) << 1
     option = TkVariable.new('month')
     @year_month = Array.new
 
@@ -29,6 +29,7 @@ class TkIccsGui
     frame_20 = TkFrame.new(root){pack}
     frame_30 = TkFrame.new(root){pack}
     frame_40 = TkFrame.new(root){pack}
+
     TkLabel.new(frame_area_code){text '机构代码'
       pack(side:'left', padx:5, pady:10)}
     area_code = TkVariable.new
@@ -37,6 +38,17 @@ class TkIccsGui
       width 6
       pack(side:'left', padx:5, pady:10)
     }
+
+    TkLabel.new(frame_area_code){text '年度'
+      pack(side: 'left', padx:5, pady:10)
+    }
+    year = TkVariable.new
+    year.value = date.strftime("%Y")
+    @entry_year = TkEntry.new(frame_area_code, textvariable:year){
+      width 4
+      pack(side: 'left', padx:2, pady:10)
+    }
+
   end
 end
 
