@@ -2,7 +2,7 @@
 # @Author: david
 # @Date:   2017-07-04 18:16:06
 # @Last Modified by:   anchen
-# @Last Modified time: 2017-08-07 11:24:17
+# @Last Modified time: 2017-08-07 13:59:41
 require 'tk'
 require 'date'
 
@@ -48,8 +48,8 @@ class TkIccsGui
     root = TkRoot.new { title "ICCS处理"}
     frame_date = TkFrame.new(root){pack}
     frame_quarter = TkFrame.new(root){pack}
-    frame_20 = TkFrame.new(root){pack}
-    frame_30 = TkFrame.new(root){pack}
+    frame_data_path = TkFrame.new(root){pack}
+    frame_iccs_path = TkFrame.new(root){pack}
     frame_run = TkFrame.new(root){pack}
 
     TkLabel.new(frame_date){text '机构代码'
@@ -115,11 +115,44 @@ class TkIccsGui
     }
 
     # 数据目录选择
-    #
-    #
+    TkLabel.new(frame_data_path) {text '数据文件夹'
+      pack(side:'left', padx:5, pady:10)
+    }
+    dbf_variable = TkVariable.new
+    dbf_variable.value = 'E:/数据备份/' + "#{@entry_year.get}" + '/' + "#{quarter}季度"
+    @entry_dbf_path = TkEntry.new(frame_data_path, textvariable:dbf_variable){
+      width 30
+      pack(side:'left', padx:5, pady:10)
+    }
+    view_dbf_file = proc{dbf_variable.value = TK.chooseDirectory
+      @entry_dbf_path.textvariable = dbf_variable
+    }
+    btn_view_dbf = TkButton.new(frame_data_path){
+      text '选择文件夹'
+      command view_dbf_file
+      pack(side:'left', padx:5, pady:10)
+    }
     # ICCS文件目录选择
+    TkLabel.new(frame_iccs_path){text ' 报表文件夹'
+      pack(side:'left', padx:5, pady:10)
+    }
+    iccs_variable = TkVariable.new
+    @iccs_path = Dir.pwd + '/' + 'ICCS0000610100_月'
+    iccs_variable.value = @iccs_path
+    @entry_iccs_path = TkEntry.new(frame_iccs_path, textvariable:iccs_variable){
+      width 30
+      pack(side:'left', padx:5, pady:10)
+    }
 
+    view_iccs = proc{iccs_variable.value = Tk.chooseDirectory
+      @entry_iccs_path.textvariable = iccs_variable
+    }
 
+    btn_view_iccs = TkButton.new(frame_iccs_path){
+      text '选择文件夹'
+      command view_iccs
+      pack(side:'left', padx:5, pady:10)
+    }
     # 快报处理程序
     TkButton.new(frame_run){text '数据处理'
       width 10
