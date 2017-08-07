@@ -2,13 +2,16 @@
 # @Author: david
 # @Date:   2017-07-04 18:16:06
 # @Last Modified by:   anchen
-# @Last Modified time: 2017-08-07 13:59:41
+# @Last Modified time: 2017-08-07 16:49:33
 require 'tk'
 require 'date'
 
 class TkIccsGui
   def iccs_run
 
+    Tk.messageBox( type:"ok", icon:"info",
+          title:"信息提示",
+          message:"业务处理完成。")
   end
 
   def initialize
@@ -45,7 +48,10 @@ class TkIccsGui
     }
 
     # 图形界面生成
-    root = TkRoot.new { title "ICCS处理"}
+    root = TkRoot.new do
+      title 'ICCS数据处理'
+    end
+    # root = TkRoot.new { title "ICCS处理"}
     frame_date = TkFrame.new(root){pack}
     frame_quarter = TkFrame.new(root){pack}
     frame_data_path = TkFrame.new(root){pack}
@@ -167,10 +173,6 @@ class TkIccsGui
     }
   end
 end
-
-
-
-
 
 TkIccsGui.new
 Tk.mainloop
