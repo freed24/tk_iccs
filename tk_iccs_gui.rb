@@ -2,9 +2,10 @@
 # @Author: david
 # @Date:   2017-07-04 18:16:06
 # @Last Modified by:   anchen
-# @Last Modified time: 2017-08-07 16:49:33
+# @Last Modified time: 2017-08-07 18:08:26
 require 'tk'
 require 'date'
+require './mxbf_to_iccs.rb'
 
 class TkIccsGui
   def iccs_run
@@ -143,7 +144,7 @@ class TkIccsGui
       pack(side:'left', padx:5, pady:10)
     }
     iccs_variable = TkVariable.new
-    @iccs_path = Dir.pwd + '/' + 'ICCS0000610100_月'
+    @iccs_path = File.dirname(__FILE__) + '/' + 'ICCS0000610100_月'
     iccs_variable.value = @iccs_path
     @entry_iccs_path = TkEntry.new(frame_iccs_path, textvariable:iccs_variable){
       width 30
